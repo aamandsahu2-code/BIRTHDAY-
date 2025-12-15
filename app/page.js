@@ -16,11 +16,22 @@ export default function HomePage() {
     <IntroScreen key="intro" onNext={() => setCurrentScreen(2)} />,
     <CakeScreen key="cake" onNext={() => setCurrentScreen(3)} />,
     <PhotosScreen key="photos" onNext={() => setCurrentScreen(4)} />,
-    <MessageScreen key="message" />,
+    <MessageScreen key="message" onNext={() => setCurrentScreen(5)} />,
   ]
 
   return (
     <main className="min-h-screen bg-gradient-to-tr from-rose-950/40 via-black to-rose-950/40 overflow-hidden relative">
+      {/* Floating hearts background */}
+      <div className="hearts-bg">
+        <div className="heart heart-small" style={{ left: "10%", bottom: "-10%", animationDelay: "0s" }} />
+        <div className="heart heart-medium" style={{ left: "25%", bottom: "-15%", animationDelay: "2s" }} />
+        <div className="heart heart-small" style={{ left: "40%", bottom: "-12%", animationDelay: "4s" }} />
+        <div className="heart heart-large" style={{ left: "55%", bottom: "-18%", animationDelay: "1s" }} />
+        <div className="heart heart-small" style={{ left: "70%", bottom: "-10%", animationDelay: "3s" }} />
+        <div className="heart heart-medium" style={{ left: "85%", bottom: "-15%", animationDelay: "5s" }} />
+      </div>
+
+      {/* Main content above hearts */}
       <div className="relative z-10 flex min-h-screen items-center justify-center p-4 md:p-6">
         <AnimatePresence mode="wait">
           <motion.div
@@ -29,18 +40,21 @@ export default function HomePage() {
             animate={{ opacity: 1, scale: 1, transition: { duration: 1 } }}
             exit={{ opacity: 0, transition: { duration: 0.8 } }}
             transition={{ duration: 0.8 }}
-            className={`w-full ${currentScreen === 3 ? "max-w-7xl" : "max-w-3xl md:max-w-4xl"}`}
+            className={w-full ${currentScreen === 3 ? "max-w-7xl" : "max-w-3xl md:max-w-4xl"}}
           >
             {screens[currentScreen]}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Watermark - CHANGED ✅ */}
+      {/* Watermark */}
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
+        transition={{
+          duration: 1,
+          delay: 1,
+        }}
         className="fixed bottom-4 right-4 text-sm text-white/40 pointer-events-none z-50 font-light"
       >
         @kd
