@@ -13,6 +13,7 @@ export default function CakeScreen({ onNext }) {
   const [cutDone, setCutDone] = useState(false)
   const audioRef = useRef(null)
 
+  // Birthday song audio load
   useEffect(() => {
     if (typeof window !== "undefined") {
       audioRef.current = new Audio("/sounds/happy-birthday.mp3")
@@ -28,7 +29,7 @@ export default function CakeScreen({ onNext }) {
     if (cutDone) return
     setCutDone(true)
 
-    // birthday song play
+    // Play birthday song
     try {
       if (audioRef.current) {
         audioRef.current.currentTime = 0
@@ -38,7 +39,7 @@ export default function CakeScreen({ onNext }) {
       console.warn("Audio play blocked by browser", e)
     }
 
-    // confetti pops
+    // Confetti bursts
     burst()
     setTimeout(burst, 500)
     setTimeout(burst, 900)
@@ -80,7 +81,7 @@ export default function CakeScreen({ onNext }) {
           </GradientButton>
         )}
 
-        {/* 2. Cut the Cake (only after candle lit) */}
+        {/* 2. Cut the Cake (after candle lit) */}
         {lit && !cutDone && (
           <GradientButton onClick={cutCake} className="mt-2">
             <Scissors size={20} />
@@ -88,9 +89,18 @@ export default function CakeScreen({ onNext }) {
           </GradientButton>
         )}
 
-        {/* 3. Next button (only after cut) */}
+        {/* 3. Next button (after cut) */}
         {cutDone && (
-          <GradientButton onClick={onNext} className="mt-2">
+          <GradientButton
+            onClick={() => {
+              if (audioRef.current) {
+                audioRef.current.pause()
+                audioRef.current.currentTime = 0
+              }
+              onNext()
+            }}
+            className="mt-2"
+          >
             Next
             <ArrowRight size={20} className="mt-0.5" />
           </GradientButton>
