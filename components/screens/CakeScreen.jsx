@@ -56,6 +56,13 @@ export default function CakeScreen({ onNext }) {
 
   return (
     <div className="px-4 md:px-6 py-10 text-center relative">
+      {/* Soft glowing blobs behind cake */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute w-40 h-40 bg-pink-500/20 blur-3xl rounded-full -top-10 left-6" />
+        <div className="absolute w-56 h-56 bg-fuchsia-500/25 blur-3xl rounded-full bottom-0 right-4" />
+        <div className="absolute w-32 h-32 bg-violet-500/20 blur-3xl rounded-full top-1/3 -left-10" />
+      </div>
+
       {lit && (
         <motion.div
           className="fixed top-40 lg:top-56 left-0 w-full text-center text-[40px] md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 drop-shadow leading-tight px-4"
@@ -64,7 +71,7 @@ export default function CakeScreen({ onNext }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
         >
-          Happy Birthday, Princess!
+          Happy Birthday, Princess Anshika!
         </motion.div>
       )}
 
@@ -104,6 +111,18 @@ export default function CakeScreen({ onNext }) {
             Next
             <ArrowRight size={20} className="mt-0.5" />
           </GradientButton>
+        )}
+
+        {/* Helper text when song playing */}
+        {cutDone && (
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mt-3 text-sm text-pink-100/80"
+          >
+            Turn up the volume and enjoy your birthday song 🎵
+          </motion.p>
         )}
       </div>
     </div>
