@@ -40,11 +40,11 @@ export default function MessageScreen({ onNext }) {
             onClick={toggleCard}
             initial={false}
             animate={{
-              rotateX: isOpen ? 0 : -65,
-              translateY: isOpen ? 0 : 10,
+              rotateX: isOpen ? 0 : -25,
+              translateY: isOpen ? 0 : 4,
               boxShadow: isOpen
                 ? "0 22px 55px rgba(0,0,0,0.35)"
-                : "0 18px 40px rgba(0,0,0,0.4)",
+                : "0 18px 40px rgba(0,0,0,0.35)",
             }}
             transition={{
               type: "spring",
@@ -64,9 +64,9 @@ export default function MessageScreen({ onNext }) {
                 className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-rose-100"
               >
                 <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
+                  initial={{ scale: 0.96, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ duration: 0.4 }}
                   className="flex flex-col items-center gap-2"
                 >
                   <Heart className="w-10 h-10 text-rose-600" />
