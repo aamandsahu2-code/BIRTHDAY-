@@ -34,7 +34,11 @@ export default function PhotosScreen({ onNext }) {
       </div>
 
       <div className="relative flex justify-center">
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
           <Swiper
             effect="cards"
             grabCursor
@@ -44,13 +48,17 @@ export default function PhotosScreen({ onNext }) {
           >
             {photos.map((src, i) => (
               <SwiperSlide key={i}>
-                <div className="h-full w-full rounded-2xl">
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="h-full w-full rounded-2xl"
+                >
                   <img
                     src={src}
                     alt={`Memory ${i + 1}`}
                     className="h-full w-full rounded-xl object-cover"
                   />
-                </div>
+                </motion.div>
               </SwiperSlide>
             ))}
           </Swiper>
