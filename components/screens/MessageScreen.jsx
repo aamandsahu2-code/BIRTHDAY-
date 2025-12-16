@@ -33,23 +33,23 @@ export default function MessageScreen({ onNext }) {
         A Special Message
       </motion.h2>
 
-      {/* Card container with 3D perspective */}
+      {/* Card + perspective */}
       <div className="mx-auto relative w-full max-w-3xl flex justify-center">
         <div className="relative w-full max-w-md" style={{ perspective: "1200px" }}>
           <motion.div
             onClick={toggleCard}
             initial={false}
             animate={{
-              rotateX: isOpen ? 0 : -75,
-              translateY: isOpen ? 0 : 20,
+              rotateX: isOpen ? 0 : -65,
+              translateY: isOpen ? 0 : 10,
               boxShadow: isOpen
-                ? "0 25px 60px rgba(0,0,0,0.35)"
+                ? "0 22px 55px rgba(0,0,0,0.35)"
                 : "0 18px 40px rgba(0,0,0,0.4)",
             }}
             transition={{
               type: "spring",
               stiffness: 140,
-              damping: 15,
+              damping: 16,
             }}
             className="relative mx-auto cursor-pointer select-none bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 rounded-2xl shadow-2xl overflow-hidden"
             style={{
@@ -61,7 +61,6 @@ export default function MessageScreen({ onNext }) {
               <motion.div
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
                 className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-rose-100"
               >
                 <motion.div
@@ -77,14 +76,11 @@ export default function MessageScreen({ onNext }) {
                   <p className="text-lg md:text-xl font-semibold text-rose-800">
                     Tap to open your letter
                   </p>
-                  <p className="text-xs text-rose-700/70 mt-1">
-                    A small piece of my heart, written for you.
-                  </p>
                 </motion.div>
               </motion.div>
             )}
 
-            {/* Inner message + button (only visible when open) */}
+            {/* Inner message (visible when open) */}
             <motion.div
               className="relative z-10 px-5 py-6 md:px-7 md:py-7 text-left"
               style={{
@@ -107,33 +103,25 @@ export default function MessageScreen({ onNext }) {
                 know how special you are, Anshika. Keep being the amazing person you are, spreading joy wherever you go.
                 Wishing you endless happiness, success, and all the sweet things life has to offer. 💗
               </motion.p>
-
-              {isOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.25 }}
-                  className="mt-4 flex justify-center"
-                >
-                  <GradientButton
-                    onClick={(e) => {
-                      e.stopPropagation() // card pe dubara click na count ho
-                      onNext()
-                    }}
-                  >
-                    Done! 🎉
-                    <ArrowRight size={20} className="mt-0.5" />
-                  </GradientButton>
-                </motion.div>
-              )}
             </motion.div>
           </motion.div>
         </div>
       </div>
 
-      <p className="mt-3 text-xs text-rose-100/80">
-        (Pehle card par tap karke kholना, phir andar se Done dabाना 🙂)
-      </p>
+      {/* Done button card ke niche, sirf open hone ke baad */}
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+          className="mt-8 flex justify-center"
+        >
+          <GradientButton onClick={onNext}>
+            Done! 🎉
+            <ArrowRight size={20} className="mt-0.5" />
+          </GradientButton>
+        </motion.div>
+      )}
     </div>
   )
 }
