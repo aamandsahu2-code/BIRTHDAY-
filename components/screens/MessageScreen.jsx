@@ -1,12 +1,14 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import confetti from "canvas-confetti"
 import GradientButton from "../GradientButton"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Heart } from "lucide-react"
 
 export default function MessageScreen({ onNext }) {
+  const [isOpen, setIsOpen] = useState(false)
+
   useEffect(() => {
     confetti({
       particleCount: 80,
@@ -15,6 +17,10 @@ export default function MessageScreen({ onNext }) {
       colors: ["#F9A8D4", "#C4B5FD", "#FDE68A"],
     })
   }, [])
+
+  const toggleCard = () => {
+    setIsOpen((prev) => !prev)
+  }
 
   return (
     <div className="px-4 md:px-6 py-10 text-center">
@@ -27,35 +33,107 @@ export default function MessageScreen({ onNext }) {
         A Special Message
       </motion.h2>
 
+      {/* Card container with 3D perspective */}
       <div className="mx-auto relative w-full max-w-3xl flex justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="h-auto max-w-xl bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 rounded-2xl shadow-lg p-4 md:p-6 text-center"
-        >
-          <p className="text-[#301733] text-base md:text-lg leading-relaxed overflow-y-auto max-h-[400px] pr-2">
-            Happy Birthday, Princess Anshika! You deserve all the happiness, love, and smiles in the world today and always.
-            You have this special way of making everything around you brighter, your smile, your kindness, and the way
-            you make people feel truly cared for. I hope your day is filled with laughter, surprises, and moments that
-            make your heart happy. You&apos;re truly one of a kind, and I just want you to know how special you are, Anshika.
-            Keep being the amazing person you are, spreading joy wherever you go. Wishing you endless happiness,
-            success, and all the sweet things life has to offer. 💗
-          </p>
-        </motion.div>
+        <div className="relative w-full max-w-md" style={{ perspective: "1200px" }}>
+          <motion.div
+            onClick={toggleCard}
+            initial={false}
+            animate={{
+              rotateX: isOpen ? 0 : -75,
+              translateY: isOpen ? 0 : 20,
+              boxShadow: isOpen
+                ? "0 25px 60px rgba(0,0,0,0.35)"
+                : "0 18px 40px rgba(0,0,0,0.4)",
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 140,
+              damping: 15,
+            }}
+            className="relative mx-auto cursor-pointer select-none bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 rounded-2xl shadow-2xl overflow-hidden"
+            style={{
+              transformOrigin: "top center",
+            }}
+          >
+            {/* Closed/front cover */}
+            {!isOpen && (
+              <motion.div
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-rose-100"
+              >
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                  className="flex flex-col items-center gap-2"
+                >
+                  <Heart className="w-10 h-10 text-rose-600" />
+                  <p className="text-sm uppercase tracking-[0.3em] text-rose-700/80">
+                    To Anshika
+                  </p>
+                  <p className="text-lg md:text-xl font-semibold text-rose-800">
+                    Tap to open your letter
+                  </p>
+                  <p className="text-xs text-rose-700/70 mt-1">
+                    A small piece of my heart, written for you.
+                  </p>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Inner message + button (only visible when open) */}
+            <motion.div
+              className="relative z-10 px-5 py-6 md:px-7 md:py-7 text-left"
+              style={{
+                minHeight: "260px",
+              }}
+            >
+              <motion.p
+                initial={false}
+                animate={{
+                  opacity: isOpen ? 1 : 0,
+                  y: isOpen ? 0 : 12,
+                }}
+                transition={{ duration: 0.4, delay: isOpen ? 0.15 : 0 }}
+                className="text-[#301733] text-base md:text-lg leading-relaxed overflow-y-auto max-h-[260px] pr-1"
+              >
+                Happy Birthday, Princess Anshika! You deserve all the happiness, love, and smiles in the world today
+                and always. You have this special way of making everything around you brighter, your smile, your
+                kindness, and the way you make people feel truly cared for. I hope your day is filled with laughter,
+                surprises, and moments that make your heart happy. You&apos;re truly one of a kind, and I just want you to
+                know how special you are, Anshika. Keep being the amazing person you are, spreading joy wherever you go.
+                Wishing you endless happiness, success, and all the sweet things life has to offer. 💗
+              </motion.p>
+
+              {isOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.25 }}
+                  className="mt-4 flex justify-center"
+                >
+                  <GradientButton
+                    onClick={(e) => {
+                      e.stopPropagation() // card pe dubara click na count ho
+                      onNext()
+                    }}
+                  >
+                    Done! 🎉
+                    <ArrowRight size={20} className="mt-0.5" />
+                  </GradientButton>
+                </motion.div>
+              )}
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut", delay: 0.5 }}
-        className="mt-12 flex justify-center"
-      >
-        <GradientButton onClick={onNext}>
-          Done! 🎉
-          <ArrowRight size={20} className="mt-0.5" />
-        </GradientButton>
-      </motion.div>
+      <p className="mt-3 text-xs text-rose-100/80">
+        (Pehle card par tap karke kholना, phir andar se Done dabाना 🙂)
+      </p>
     </div>
   )
 }
