@@ -11,11 +11,14 @@ const confettiColors = ["#FF3CAC", "#F687B3", "#D8B4FE", "#C084FC", "#F472B6"]
 export default function CakeScreen({ onNext }) {
   const [lit, setLit] = useState(false)
   const [cutDone, setCutDone] = useState(false)
-  const audioRef = useRef(null)
+  const audioRef = useRef(null)   // birthday song
+  const sfxRef = useRef(null)     // cut sound
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       audioRef.current = new Audio("/sounds/birthday-lofi.mp3")
+      sfxRef.current = new Audio("/sounds/cut.mp3")
+      if (sfxRef.current) sfxRef.current.volume = 0.4
     }
   }, [])
 
@@ -28,6 +31,17 @@ export default function CakeScreen({ onNext }) {
     if (cutDone) return
     setCutDone(true)
 
+    // short cut sound
+    try {
+      if (sfxRef.current) {
+        sfxRef.current.currentTime = 0
+        sfxRef.current.play()
+      }
+    } catch (e) {
+      console.warn("SFX play blocked", e)
+    }
+
+    // Play birthday song
     try {
       if (audioRef.current) {
         audioRef.current.currentTime = 0
@@ -37,9 +51,12 @@ export default function CakeScreen({ onNext }) {
       console.warn("Audio play blocked by browser", e)
     }
 
+    // Normal confetti bursts
     burst()
     setTimeout(burst, 500)
     setTimeout(burst, 900)
+
+    // Sky-shot / fireworks style
     setTimeout(fireworks, 300)
   }
 
