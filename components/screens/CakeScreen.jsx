@@ -16,7 +16,8 @@ export default function CakeScreen({ onNext }) {
   // Birthday song audio load
   useEffect(() => {
     if (typeof window !== "undefined") {
-      audioRef.current = new Audio("/sounds/happy-birthday.mp3")
+      // yaha apna song file path rakho
+      audioRef.current = new Audio("/sounds/birthday-lofi.mp3")
     }
   }, [])
 
@@ -39,10 +40,13 @@ export default function CakeScreen({ onNext }) {
       console.warn("Audio play blocked by browser", e)
     }
 
-    // Confetti bursts
+    // Normal confetti bursts
     burst()
     setTimeout(burst, 500)
     setTimeout(burst, 900)
+
+    // Sky-shot / fireworks style background
+    setTimeout(fireworks, 300)
   }
 
   const burst = () => {
@@ -52,6 +56,49 @@ export default function CakeScreen({ onNext }) {
       origin: { y: 0.6 },
       colors: confettiColors,
     })
+  }
+
+  // Fireworks / sky-shot effect using canvas-confetti presets [web:129][web:131]
+  const fireworks = () => {
+    const duration = 1500
+    const animationEnd = Date.now() + duration
+    const defaults = {
+      startVelocity: 35,
+      spread: 360,
+      ticks: 60,
+      zIndex: 0,
+    }
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now()
+      if (timeLeft <= 0) {
+        return clearInterval(interval)
+      }
+
+      const particleCount = 30 * (timeLeft / duration)
+
+      // Left side sky shot
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: {
+          x: Math.random() * 0.2 + 0.1, // 0.1–0.3
+          y: Math.random() * 0.3, // top area
+        },
+        colors: ["#F97316", "#FB7185", "#FACC15", "#A855F7"],
+      })
+
+      // Right side sky shot
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: {
+          x: Math.random() * 0.2 + 0.7, // 0.7–0.9
+          y: Math.random() * 0.3,
+        },
+        colors: ["#F97316", "#FB7185", "#FACC15", "#A855F7"],
+      })
+    }, 200)
   }
 
   return (
@@ -121,7 +168,7 @@ export default function CakeScreen({ onNext }) {
             transition={{ duration: 0.6 }}
             className="mt-3 text-sm text-pink-100/80"
           >
-            Turn up the volume and enjoy your birthday song 🎵
+            Volume badhao, ab tumhara birthday sky‑shots ke saath chal raha hai 🎆
           </motion.p>
         )}
       </div>
