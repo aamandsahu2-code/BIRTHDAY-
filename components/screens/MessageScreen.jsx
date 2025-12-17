@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import confetti from "canvas-confetti"
 import GradientButton from "../GradientButton"
@@ -8,6 +8,7 @@ import { ArrowRight, Heart } from "lucide-react"
 
 export default function MessageScreen({ onNext }) {
   const [isOpen, setIsOpen] = useState(false)
+  const flipRef = useRef(null)
 
   useEffect(() => {
     confetti({
@@ -18,12 +19,27 @@ export default function MessageScreen({ onNext }) {
     })
   }, [])
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      flipRef.current = new Audio("/sounds/page-flip.mp3")
+      if (flipRef.current) flipRef.current.volume = 0.35
+    }
+  }, [])
+
   const toggleCard = () => {
+    if (!isOpen && flipRef.current) {
+      try {
+        flipRef.current.currentTime = 0
+        flipRef.current.play()
+      } catch (e) {
+        console.warn("Flip sound blocked", e)
+      }
+    }
     setIsOpen((prev) => !prev)
   }
 
   return (
-    <div className="px-4 md:px-6 py-10 text-center">
+    <div className="px-4 md:px-6 py-10 text-center relative">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -33,7 +49,6 @@ export default function MessageScreen({ onNext }) {
         A Special Message
       </motion.h2>
 
-      {/* Card + perspective */}
       <div className="mx-auto relative w-full max-w-3xl flex justify-center">
         <div className="relative w-full max-w-md" style={{ perspective: "1200px" }}>
           <motion.div
@@ -56,7 +71,6 @@ export default function MessageScreen({ onNext }) {
               transformOrigin: "top center",
             }}
           >
-            {/* Closed/front cover */}
             {!isOpen && (
               <motion.div
                 initial={{ opacity: 1 }}
@@ -80,7 +94,6 @@ export default function MessageScreen({ onNext }) {
               </motion.div>
             )}
 
-            {/* Inner message (visible when open) */}
             <motion.div
               className="relative z-10 px-5 py-6 md:px-7 md:py-7 text-left"
               style={{
@@ -108,7 +121,6 @@ export default function MessageScreen({ onNext }) {
         </div>
       </div>
 
-      {/* Done button card ke niche, sirf open hone ke baad */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}
