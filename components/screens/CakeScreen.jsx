@@ -13,10 +13,8 @@ export default function CakeScreen({ onNext }) {
   const [cutDone, setCutDone] = useState(false)
   const audioRef = useRef(null)
 
-  // Birthday song audio load
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // yaha apna song file path rakho
       audioRef.current = new Audio("/sounds/birthday-lofi.mp3")
     }
   }, [])
@@ -30,7 +28,6 @@ export default function CakeScreen({ onNext }) {
     if (cutDone) return
     setCutDone(true)
 
-    // Play birthday song
     try {
       if (audioRef.current) {
         audioRef.current.currentTime = 0
@@ -40,12 +37,9 @@ export default function CakeScreen({ onNext }) {
       console.warn("Audio play blocked by browser", e)
     }
 
-    // Normal confetti bursts
     burst()
     setTimeout(burst, 500)
     setTimeout(burst, 900)
-
-    // Sky-shot / fireworks style background
     setTimeout(fireworks, 300)
   }
 
@@ -58,7 +52,6 @@ export default function CakeScreen({ onNext }) {
     })
   }
 
-  // Fireworks / sky-shot effect using canvas-confetti presets [web:129][web:131]
   const fireworks = () => {
     const duration = 1500
     const animationEnd = Date.now() + duration
@@ -77,23 +70,21 @@ export default function CakeScreen({ onNext }) {
 
       const particleCount = 30 * (timeLeft / duration)
 
-      // Left side sky shot
       confetti({
         ...defaults,
         particleCount,
         origin: {
-          x: Math.random() * 0.2 + 0.1, // 0.1–0.3
-          y: Math.random() * 0.3, // top area
+          x: Math.random() * 0.2 + 0.1,
+          y: Math.random() * 0.3,
         },
         colors: ["#F97316", "#FB7185", "#FACC15", "#A855F7"],
       })
 
-      // Right side sky shot
       confetti({
         ...defaults,
         particleCount,
         origin: {
-          x: Math.random() * 0.2 + 0.7, // 0.7–0.9
+          x: Math.random() * 0.2 + 0.7,
           y: Math.random() * 0.3,
         },
         colors: ["#F97316", "#FB7185", "#FACC15", "#A855F7"],
@@ -103,7 +94,6 @@ export default function CakeScreen({ onNext }) {
 
   return (
     <div className="px-4 md:px-6 py-10 text-center relative">
-      {/* Soft glowing blobs behind cake */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute w-40 h-40 bg-pink-500/20 blur-3xl rounded-full -top-10 left-6" />
         <div className="absolute w-56 h-56 bg-fuchsia-500/25 blur-3xl rounded-full bottom-0 right-4" />
@@ -127,7 +117,6 @@ export default function CakeScreen({ onNext }) {
           <Cake lit={lit} />
         </div>
 
-        {/* 1. Candle button */}
         {!lit && (
           <GradientButton onClick={lightCandle}>
             <Flame size={20} />
@@ -135,7 +124,6 @@ export default function CakeScreen({ onNext }) {
           </GradientButton>
         )}
 
-        {/* 2. Cut the Cake (after candle lit) */}
         {lit && !cutDone && (
           <GradientButton onClick={cutCake} className="mt-2">
             <Scissors size={20} />
@@ -143,7 +131,6 @@ export default function CakeScreen({ onNext }) {
           </GradientButton>
         )}
 
-        {/* 3. Next button (after cut) */}
         {cutDone && (
           <GradientButton
             onClick={() => {
@@ -158,18 +145,6 @@ export default function CakeScreen({ onNext }) {
             Next
             <ArrowRight size={20} className="mt-0.5" />
           </GradientButton>
-        )}
-
-        {/* Helper text when song playing */}
-        {cutDone && (
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mt-3 text-sm text-pink-100/80"
-          >
-            Volume badhao, ab tumhara birthday sky‑shots ke saath chal raha hai 🎆
-          </motion.p>
         )}
       </div>
     </div>
