@@ -85,7 +85,7 @@ export default function MessageScreen({ onNext }) {
                 >
                   <Heart className="w-10 h-10 text-rose-600" />
                   <p className="text-sm uppercase tracking-[0.3em] text-rose-700/80">
-                    To Anshika
+                    For someone very special
                   </p>
                   <p className="text-lg md:text-xl font-semibold text-rose-800">
                     Tap to open your letter
@@ -109,12 +109,18 @@ export default function MessageScreen({ onNext }) {
                 transition={{ duration: 0.4, delay: isOpen ? 0.15 : 0 }}
                 className="text-[#301733] text-base md:text-lg leading-relaxed overflow-y-auto max-h-[260px] pr-1"
               >
-                Happy Birthday, Princess Anshika! You deserve all the happiness, love, and smiles in the world today
-                and always. You have this special way of making everything around you brighter, your smile, your
-                kindness, and the way you make people feel truly cared for. I hope your day is filled with laughter,
-                surprises, and moments that make your heart happy. You&apos;re truly one of a kind, and I just want you to
-                know how special you are, Anshika. Keep being the amazing person you are, spreading joy wherever you go.
-                Wishing you endless happiness, success, and all the sweet things life has to offer. 💗
+                Happy Birthday! Tu un logon me se hai jinke saath baith ke time ka pata hi nahi chalta. Random
+                baatein ho, overthinking ho ya sirf memes share karna ho, tere saath sab kuch thoda हल्का, thoda
+                better feel hota hai.  
+                <br />
+                <br />
+                Thanks for being exactly the way you are – real, comfortable aur bilkul filter ke bina. Aise hi
+                apne sapne chase karta reh, mistakes se seekhta reh, aur jitni bhi achhi cheezein life me possible
+                hain, sab tere paas aaye.  
+                <br />
+                <br />
+                Aaj ke din bas itna yaad rakh: tu important hai, tu matter karta hai, aur tujh jaisa dost milna
+                सच me lucky part hai. Happy birthday once again, aur haan, abhi ek last chhota sa gift aur baaki hai. ✨
               </motion.p>
             </motion.div>
           </motion.div>
@@ -129,7 +135,7 @@ export default function MessageScreen({ onNext }) {
           className="mt-8 flex justify-center"
         >
           <GradientButton onClick={onNext}>
-            Done! 🎉
+            Last gift for you 🎁
             <ArrowRight size={20} className="mt-0.5" />
           </GradientButton>
         </motion.div>
