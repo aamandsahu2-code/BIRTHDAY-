@@ -49,35 +49,28 @@ export default function MessageScreen({ onNext }) {
         A Special Message
       </motion.h2>
 
-      {/* Card with 3D flip-style opening */}
       <div className="mx-auto relative w-full max-w-3xl flex justify-center">
-        <div
-          className="relative w-full max-w-md"
-          style={{ perspective: "1400px" }}
-        >
+        <div className="relative w-full max-w-md" style={{ perspective: "1200px" }}>
           <motion.div
             onClick={toggleCard}
             initial={false}
             animate={{
-              rotateX: isOpen ? 0 : -10,
-              rotateY: isOpen ? 0 : -25,
-              translateY: isOpen ? 0 : 8,
+              rotateX: isOpen ? 0 : -25,
+              translateY: isOpen ? 0 : 4,
               boxShadow: isOpen
                 ? "0 22px 55px rgba(0,0,0,0.35)"
                 : "0 18px 40px rgba(0,0,0,0.35)",
             }}
             transition={{
               type: "spring",
-              stiffness: 120,
+              stiffness: 140,
               damping: 16,
             }}
             className="relative mx-auto cursor-pointer select-none bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 rounded-2xl shadow-2xl overflow-hidden"
             style={{
-              transformStyle: "preserve-3d",
-              transformOrigin: "left center",
+              transformOrigin: "top center",
             }}
           >
-            {/* Closed/front cover */}
             {!isOpen && (
               <motion.div
                 initial={{ opacity: 1 }}
@@ -90,14 +83,29 @@ export default function MessageScreen({ onNext }) {
                   transition={{ duration: 0.4 }}
                   className="flex flex-col items-center gap-2"
                 >
-                          >
                   <Heart className="w-10 h-10 text-rose-600" />
                   <p className="text-sm uppercase tracking-[0.3em] text-rose-700/80">
                     To Anshika
                   </p>
                   <p className="text-lg md:text-xl font-semibold text-rose-800">
                     Tap to open your letter
-@@ -109,12 +109,18 @@ export default function MessageScreen({ onNext }) {
+                  </p>
+                </motion.div>
+              </motion.div>
+            )}
+
+            <motion.div
+              className="relative z-10 px-5 py-6 md:px-7 md:py-7 text-left"
+              style={{
+                minHeight: "260px",
+              }}
+            >
+              <motion.p
+                initial={false}
+                animate={{
+                  opacity: isOpen ? 1 : 0,
+                  y: isOpen ? 0 : 12,
+                }}
                 transition={{ duration: 0.4, delay: isOpen ? 0.15 : 0 }}
                 className="text-[#301733] text-base md:text-lg leading-relaxed overflow-y-auto max-h-[260px] pr-1"
               >
@@ -107,16 +115,17 @@ export default function MessageScreen({ onNext }) {
                 surprises, and moments that make your heart happy. You&apos;re truly one of a kind, and I just want you to
                 know how special you are, Anshika. Keep being the amazing person you are, spreading joy wherever you go.
                 Wishing you endless happiness, success, and all the sweet things life has to offer. 💗
-
-
-
-
-
-
               </motion.p>
             </motion.div>
           </motion.div>
-@@ -129,7 +135,7 @@ export default function MessageScreen({ onNext }) {
+        </div>
+      </div>
+
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
           className="mt-8 flex justify-center"
         >
           <GradientButton onClick={onNext}>
@@ -124,3 +133,7 @@ export default function MessageScreen({ onNext }) {
             <ArrowRight size={20} className="mt-0.5" />
           </GradientButton>
         </motion.div>
+      )}
+    </div>
+  )
+}
