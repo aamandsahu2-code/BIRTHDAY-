@@ -49,28 +49,35 @@ export default function MessageScreen({ onNext }) {
         A Special Message
       </motion.h2>
 
+      {/* Card with 3D flip-style opening */}
       <div className="mx-auto relative w-full max-w-3xl flex justify-center">
-        <div className="relative w-full max-w-md" style={{ perspective: "1200px" }}>
+        <div
+          className="relative w-full max-w-md"
+          style={{ perspective: "1400px" }}
+        >
           <motion.div
             onClick={toggleCard}
             initial={false}
             animate={{
-              rotateX: isOpen ? 0 : -25,
-              translateY: isOpen ? 0 : 4,
+              rotateX: isOpen ? 0 : -10,
+              rotateY: isOpen ? 0 : -25,
+              translateY: isOpen ? 0 : 8,
               boxShadow: isOpen
                 ? "0 22px 55px rgba(0,0,0,0.35)"
                 : "0 18px 40px rgba(0,0,0,0.35)",
             }}
             transition={{
               type: "spring",
-              stiffness: 140,
+              stiffness: 120,
               damping: 16,
             }}
             className="relative mx-auto cursor-pointer select-none bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 rounded-2xl shadow-2xl overflow-hidden"
             style={{
-              transformOrigin: "top center",
+              transformStyle: "preserve-3d",
+              transformOrigin: "left center",
             }}
           >
+            {/* Closed/front cover */}
             {!isOpen && (
               <motion.div
                 initial={{ opacity: 1 }}
@@ -94,52 +101,7 @@ export default function MessageScreen({ onNext }) {
               </motion.div>
             )}
 
+            {/* Inner message */}
             <motion.div
               className="relative z-10 px-5 py-6 md:px-7 md:py-7 text-left"
               style={{
-                minHeight: "260px",
-              }}
-            >
-              <motion.p
-                initial={false}
-                animate={{
-                  opacity: isOpen ? 1 : 0,
-                  y: isOpen ? 0 : 12,
-                }}
-                transition={{ duration: 0.4, delay: isOpen ? 0.15 : 0 }}
-                className="text-[#301733] text-base md:text-lg leading-relaxed overflow-y-auto max-h-[260px] pr-1"
-              >
-                Happy Birthday! Tu un logon me se hai jinke saath baith ke time ka pata hi nahi chalta. Random
-                baatein ho, overthinking ho ya sirf memes share karna ho, tere saath sab kuch thoda हल्का, thoda
-                better feel hota hai.  
-                <br />
-                <br />
-                Thanks for being exactly the way you are – real, comfortable aur bilkul filter ke bina. Aise hi
-                apne sapne chase karta reh, mistakes se seekhta reh, aur jitni bhi achhi cheezein life me possible
-                hain, sab tere paas aaye.  
-                <br />
-                <br />
-                Aaj ke din bas itna yaad rakh: tu important hai, tu matter karta hai, aur tujh jaisa dost milna
-                सच me lucky part hai. Happy birthday once again, aur haan, abhi ek last chhota sa gift aur baaki hai. ✨
-              </motion.p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
-
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-          className="mt-8 flex justify-center"
-        >
-          <GradientButton onClick={onNext}>
-            Last gift for you 🎁
-            <ArrowRight size={20} className="mt-0.5" />
-          </GradientButton>
-        </motion.div>
-      )}
-    </div>
-  )
-}
