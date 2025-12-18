@@ -7,6 +7,7 @@ import IntroScreen from "@/components/screens/IntroScreen"
 import CakeScreen from "@/components/screens/CakeScreen"
 import PhotosScreen from "@/components/screens/PhotosScreen"
 import MessageScreen from "@/components/screens/MessageScreen"
+import LastGiftScreen from "@/components/screens/LastGiftScreen"
 
 export default function HomePage() {
   const [currentScreen, setCurrentScreen] = useState(0)
@@ -17,23 +18,23 @@ export default function HomePage() {
     <CakeScreen key="cake" onNext={() => setCurrentScreen(3)} />,
     <PhotosScreen key="photos" onNext={() => setCurrentScreen(4)} />,
     <MessageScreen key="message" onNext={() => setCurrentScreen(5)} />,
+    <LastGiftScreen key="lastgift" onNext={() => setCurrentScreen(6)} />,
   ]
 
   return (
     <main className="min-h-screen overflow-hidden relative">
-      {/* Base gradient: top dark purple/navy, middle pink, bottom dark */}
-      <div className="fixed inset-0 -z-30 bg-gradient-to-b from-[#050018] via-[#2b0033] to-[#050018]" />
+      {/* New fun gradient background */}
+      <div className="fixed inset-0 -z-30 bg-gradient-to-br from-[#0f172a] via-[#1d2240] to-[#020617]" />
 
-      {/* Soft glow blobs */}
+      {/* Color blobs */}
       <div className="pointer-events-none fixed inset-0 -z-20">
-        <div className="absolute w-64 h-64 bg-pink-500/20 blur-3xl rounded-full top-[-40px] left-[-40px]" />
-        <div className="absolute w-72 h-72 bg-fuchsia-500/25 blur-3xl rounded-full bottom-[-60px] right-[-40px]" />
-        <div className="absolute w-40 h-40 bg-violet-500/20 blur-3xl rounded-full top-1/3 right-10" />
+        <div className="absolute w-64 h-64 bg-sky-500/20 blur-3xl rounded-full top-[-60px] left-[-40px]" />
+        <div className="absolute w-72 h-72 bg-emerald-400/18 blur-3xl rounded-full bottom-[-80px] right-[-40px]" />
+        <div className="absolute w-52 h-52 bg-violet-500/18 blur-3xl rounded-full top-1/3 right-10" />
       </div>
 
-      {/* Stars + floating hearts (subtle, bestie vibe) */}
-      <StarsBackground />
-      <HeartsBackground />
+      {/* Floating soft circles */}
+      <FloatingShapes />
 
       {/* Main content */}
       <div className="relative z-10 flex min-h-screen items-center justify-center p-4 md:p-6">
@@ -65,118 +66,47 @@ export default function HomePage() {
   )
 }
 
-/* Small twinkling stars */
-function StarsBackground() {
-  const stars = Array.from({ length: 35 })
+/* Floating soft circles (non-romantic, just fun shapes) */
+function FloatingShapes() {
+  const circles = Array.from({ length: 10 })
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10">
-      {stars.map((_, i) => {
-        const size = Math.random() * 2 + 1 // 1–3px
-        const top = Math.random() * 100
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      {circles.map((_, i) => {
+        const size = 40 + Math.random() * 80
         const left = Math.random() * 100
-        const delay = Math.random() * 5
-        const duration = 2 + Math.random() * 3
+        const delay = Math.random() * 8
+        const duration = 18 + Math.random() * 10
 
         return (
           <span
             key={i}
-            className="absolute rounded-full bg-white/70"
+            className="absolute rounded-full bg-cyan-400/8 border border-cyan-300/10"
             style={{
               width: size,
               height: size,
-              top: `${top}%`,
               left: `${left}%`,
-              animation: `twinkle ${duration}s ease-in-out ${delay}s infinite alternate`,
+              bottom: "-20vh",
+              animation: `float-circle ${duration}s linear ${delay}s infinite`,
             }}
           />
         )
       })}
-      <style jsx global>{`
-        @keyframes twinkle {
-          from {
-            opacity: 0.15;
-            transform: scale(1);
-          }
-          to {
-            opacity: 0.8;
-            transform: scale(1.4);
-          }
-        }
-      `}</style>
-    </div>
-  )
-}
-
-/* Floating hearts – light, not too romantic */
-function HeartsBackground() {
-  const hearts = [
-    { left: "10%", delay: "0s", size: 14 },
-    { left: "25%", delay: "2s", size: 10 },
-    { left: "40%", delay: "4s", size: 12 },
-    { left: "55%", delay: "1.5s", size: 16 },
-    { left: "70%", delay: "3s", size: 11 },
-    { left: "85%", delay: "5s", size: 13 },
-  ]
-
-  return (
-    <div className="pointer-events-none fixed inset-0 -z-10">
-      {hearts.map((h, i) => (
-        <div
-          key={i}
-          className="heart-floating opacity-60"
-          style={{
-            left: h.left,
-            bottom: "-40px",
-            animationDelay: h.delay,
-            width: h.size,
-            height: h.size,
-          }}
-        />
-      ))}
 
       <style jsx global>{`
-        .heart-floating {
-          position: absolute;
-          transform: rotate(-45deg);
-          background: rgba(248, 113, 181, 0.6); /* pink-400 */
-          animation: float-heart 10s linear infinite;
-        }
-
-        .heart-floating::before,
-        .heart-floating::after {
-          content: "";
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: inherit;
-          border-radius: 50%;
-        }
-
-        .heart-floating::before {
-          top: -50%;
-          left: 0;
-        }
-
-        .heart-floating::after {
-          left: 50%;
-          top: 0;
-        }
-
-        @keyframes float-heart {
+        @keyframes float-circle {
           0% {
-            transform: translateY(0) rotate(-45deg) scale(0.8);
+            transform: translateY(0) scale(0.9);
             opacity: 0;
           }
-          15% {
+          20% {
+            opacity: 0.4;
+          }
+          60% {
             opacity: 0.6;
           }
-          50% {
-            transform: translateY(-60vh) rotate(-45deg) scale(1);
-            opacity: 0.8;
-          }
           100% {
-            transform: translateY(-100vh) rotate(-45deg) scale(0.9);
+            transform: translateY(-110vh) scale(1.1);
             opacity: 0;
           }
         }
