@@ -90,18 +90,37 @@ export default function MessageScreen({ onNext }) {
                   transition={{ duration: 0.4 }}
                   className="flex flex-col items-center gap-2"
                 >
+                          >
                   <Heart className="w-10 h-10 text-rose-600" />
                   <p className="text-sm uppercase tracking-[0.3em] text-rose-700/80">
-                    For someone very special
+                    To Anshika
                   </p>
                   <p className="text-lg md:text-xl font-semibold text-rose-800">
                     Tap to open your letter
-                  </p>
-                </motion.div>
-              </motion.div>
-            )}
+@@ -109,12 +109,18 @@ export default function MessageScreen({ onNext }) {
+                transition={{ duration: 0.4, delay: isOpen ? 0.15 : 0 }}
+                className="text-[#301733] text-base md:text-lg leading-relaxed overflow-y-auto max-h-[260px] pr-1"
+              >
+                Happy Birthday, Princess Anshika! You deserve all the happiness, love, and smiles in the world today
+                and always. You have this special way of making everything around you brighter, your smile, your
+                kindness, and the way you make people feel truly cared for. I hope your day is filled with laughter,
+                surprises, and moments that make your heart happy. You&apos;re truly one of a kind, and I just want you to
+                know how special you are, Anshika. Keep being the amazing person you are, spreading joy wherever you go.
+                Wishing you endless happiness, success, and all the sweet things life has to offer. 💗
 
-            {/* Inner message */}
-            <motion.div
-              className="relative z-10 px-5 py-6 md:px-7 md:py-7 text-left"
-              style={{
+
+
+
+
+
+              </motion.p>
+            </motion.div>
+          </motion.div>
+@@ -129,7 +135,7 @@ export default function MessageScreen({ onNext }) {
+          className="mt-8 flex justify-center"
+        >
+          <GradientButton onClick={onNext}>
+            Done! 🎉
+            <ArrowRight size={20} className="mt-0.5" />
+          </GradientButton>
+        </motion.div>
