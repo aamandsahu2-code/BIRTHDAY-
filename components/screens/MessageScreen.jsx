@@ -72,13 +72,16 @@ export default function MessageScreen({ onNext }) {
                     style={{ transformOrigin: "center", backfaceVisibility: "hidden" }}
                 >
                     <p className="text-[#301733] text-sm md:text-base leading-relaxed max-h-[320px] overflow-y-auto pr-2 mb-6">
-                       💖 Happy Birthday, Anshika ✨
-You are truly one of the most precious gifts in my life 🎁. Talking to you 💬, seeing your smile 😊, and sharing laughter with you are moments I deeply cherish 🤍. Every little moment with you feels special 🌸.
-                        <br></br>
-                        You’re not just beautiful ✨, but your heart is pure and kind 🤍. Anyone who knows you can’t help but admire you 💞.
-                        <br></br>
-                        On your special day, I wish all your dreams come true, happiness always finds you, and every moment feels just right 🌷. You deserve all the joy this world has to offer.
-Always stay this magical ✨.
+                       💖 Happy Birthday, Sabhya ✨
+
+Tum meri zindagi ka ek bahut hi special hissa ho 🤍. Tumhari muskaan 😊, tumhari baatein 💬 aur tumhara saath — yeh sab mere liye hamesha precious rahega 🌸. Bhai–behen ke rishte mein jo pyaar, masti aur care hoti hai, woh sab tumhare saath feel hoti hai 💫.
+
+Tum bahut achhi ho ✨ — dil se bhi aur nature se bhi 🤍. Tumhari simplicity aur positivity sabko pasand aati hai 🌷. Mujhe garv hai ki tum meri behen ho 💖.
+
+Tumhare birthday par meri bas yahi dua hai ki tum hamesha khush raho 😊, apne sapne poore karo 🌈 aur zindagi tumhe hamesha muskurane ke mauke de 💐.
+
+Hamesha aisi hi pyari, strong aur cheerful behen rehna ✨💖
+Tumhara bhai hamesha tumhare saath hai 🤗
                     </p>
                     
                     <div className="flex flex-col space-y-3">
@@ -99,3 +102,4 @@ Always stay this magical ✨.
         </>
     )
 }
+
