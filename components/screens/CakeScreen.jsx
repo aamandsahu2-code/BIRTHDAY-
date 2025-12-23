@@ -11,8 +11,8 @@ const confettiColors = ["#FF3CAC", "#F687B3", "#D8B4FE", "#C084FC", "#F472B6"]
 export default function CakeScreen({ onNext }) {
   const [lit, setLit] = useState(false)
   const [cutDone, setCutDone] = useState(false)
-  const audioRef = useRef(null)   // birthday song
-  const sfxRef = useRef(null)     // cut sound
+  const audioRef = useRef(null)
+  const sfxRef = useRef(null)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -31,7 +31,6 @@ export default function CakeScreen({ onNext }) {
     if (cutDone) return
     setCutDone(true)
 
-    // short cut sound
     try {
       if (sfxRef.current) {
         sfxRef.current.currentTime = 0
@@ -41,7 +40,6 @@ export default function CakeScreen({ onNext }) {
       console.warn("SFX play blocked", e)
     }
 
-    // Play birthday song
     try {
       if (audioRef.current) {
         audioRef.current.currentTime = 0
@@ -51,12 +49,9 @@ export default function CakeScreen({ onNext }) {
       console.warn("Audio play blocked by browser", e)
     }
 
-    // Normal confetti bursts
     burst()
     setTimeout(burst, 500)
     setTimeout(burst, 900)
-
-    // Sky-shot / fireworks style
     setTimeout(fireworks, 300)
   }
 
@@ -72,38 +67,25 @@ export default function CakeScreen({ onNext }) {
   const fireworks = () => {
     const duration = 1500
     const animationEnd = Date.now() + duration
-    const defaults = {
-      startVelocity: 35,
-      spread: 360,
-      ticks: 60,
-      zIndex: 0,
-    }
+    const defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 0 }
 
     const interval = setInterval(() => {
       const timeLeft = animationEnd - Date.now()
-      if (timeLeft <= 0) {
-        return clearInterval(interval)
-      }
+      if (timeLeft <= 0) return clearInterval(interval)
 
       const particleCount = 30 * (timeLeft / duration)
 
       confetti({
         ...defaults,
         particleCount,
-        origin: {
-          x: Math.random() * 0.2 + 0.1,
-          y: Math.random() * 0.3,
-        },
+        origin: { x: Math.random() * 0.2 + 0.1, y: Math.random() * 0.3 },
         colors: ["#F97316", "#FB7185", "#FACC15", "#A855F7"],
       })
 
       confetti({
         ...defaults,
         particleCount,
-        origin: {
-          x: Math.random() * 0.2 + 0.7,
-          y: Math.random() * 0.3,
-        },
+        origin: { x: Math.random() * 0.2 + 0.7, y: Math.random() * 0.3 },
         colors: ["#F97316", "#FB7185", "#FACC15", "#A855F7"],
       })
     }, 200)
@@ -125,7 +107,7 @@ export default function CakeScreen({ onNext }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
         >
-          Happy Birthday, Princess Anshika!
+          Happy Birthday, Princess!
         </motion.div>
       )}
 
@@ -170,8 +152,8 @@ export default function CakeScreen({ onNext }) {
 
 function Cake({ lit }) {
   return (
-    <div className="flex flex-col items-center">
-      <div className="cake">
+    <div className="flex flex-col items-center mx-auto">
+      <div className="cake mx-auto">
         <div className="plate"></div>
         <div className="layer layer-bottom"></div>
         <div className="layer layer-middle"></div>
@@ -185,10 +167,7 @@ function Cake({ lit }) {
             <motion.div
               initial={{ opacity: 0, scaleY: 0.2, y: 10 }}
               animate={{ opacity: 1, scaleY: 1, y: 0 }}
-              transition={{
-                duration: 0.9,
-                ease: [0.25, 0.1, 0.25, 1.0],
-              }}
+              transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1.0] }}
               className="flame"
             />
           )}
