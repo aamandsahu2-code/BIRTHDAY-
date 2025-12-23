@@ -15,7 +15,8 @@ export default function CakeScreen({ onNext }) {
   const sfxRef = useRef(null)
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    // ✅ DOUBLE LOAD PREVENT + SSR SAFE
+    if (typeof window !== "undefined" && !audioRef.current && !sfxRef.current) {
       audioRef.current = new Audio("/sounds/birthday-lofi.mp3")
       sfxRef.current = new Audio("/sounds/cut.mp3")
       if (sfxRef.current) sfxRef.current.volume = 0.4
