@@ -35,10 +35,10 @@ export default function IntroScreen({ onNext }) {
         <div>
           <h1 className="text-pretty text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 drop-shadow leading-tight">
             <StaggerText text="A Princess was born
-              19 years ago!" />
+              Today." />
           </h1>
           <p className="mt-4 text-xl text-pink-200 max-w-2xl mx-auto">
-            Yes, Anshika, it's YOU! A little surprise awaits...
+            Yes, sabhya Di, it's YOU! A little surprise awaits...
           </p>
         </div>
 
@@ -52,3 +52,4 @@ export default function IntroScreen({ onNext }) {
     </div>
   )
       }
+
